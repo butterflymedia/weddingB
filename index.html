@@ -39,11 +39,23 @@
       margin:0 auto;
       padding:80px 20px;
       opacity:0;
-      transform:translateY(40px);
-      transition:all .9s ease;
+      transform:translateY(30px);
+      transition:opacity 1s ease, transform 1s ease;
     }
 
     section.show{
+      opacity:1;
+      transform:none;
+    }
+
+    /* TEXT FADE-UP INSIDE SECTIONS */
+    .fade-text{
+      opacity:0;
+      transform:translateY(20px);
+      transition:opacity .9s ease, transform .9s ease;
+    }
+
+    .fade-text.show{
       opacity:1;
       transform:none;
     }
@@ -91,7 +103,7 @@
       color:#fff;
     }
 
-    /* GALLERY FADE-IN */
+    /* GALLERY FADE-IN (IMPROVED) */
     .gallery{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -102,13 +114,15 @@
       width:100%;
       border-radius:12px;
       opacity:0;
-      transform:scale(.96);
-      transition:all .8s ease;
+      transform:translateY(30px) scale(.97);
+      filter:blur(4px);
+      transition:opacity 1s ease, transform 1s ease, filter 1s ease;
     }
 
     .gallery img.show{
       opacity:1;
-      transform:scale(1);
+      transform:translateY(0) scale(1);
+      filter:blur(0);
     }
 
     footer{
@@ -169,14 +183,14 @@
       <p>We are getting married</p>
     </div>
   </div>  <!-- INVITATION -->  <section>
-    <h2>With Grace & Blessings</h2>
+    <h2 class="fade-text">With Grace & Blessings</h2>
     <div class="divider"></div>
-    <p>
+    <p class="fade-text">
       With the blessings of Almighty God and the love of our families,<br>
       we invite you to celebrate the union of <strong>Gokul</strong> and <strong>Athira</strong>.
     </p>
   </section>  <!-- GALLERY -->  <section>
-    <h2>Moments</h2>
+    <h2 class="fade-text">Moments</h2>
     <div class="divider"></div>
     <div class="gallery">
       <img src="gallery1.jpg" alt="Gallery 1">
@@ -185,7 +199,7 @@
       <img src="gallery4.jpg" alt="Gallery 4">
     </div>
   </section>  <!-- DETAILS -->  <section>
-    <h2>Wedding Details</h2>
+    <h2 class="fade-text">Wedding Details</h2>
     <div class="divider"></div>
     <div class="details">
       <div><strong>Date</strong><br>May 3rd, 2026 · Sunday</div>
@@ -204,12 +218,18 @@
   </div>  <script>
     // section reveal
     const sections = document.querySelectorAll('section');
+    const textBlocks = document.querySelectorAll('.fade-text');
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if(entry.isIntersecting){ entry.target.classList.add('show'); }
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
       });
     }, { threshold: 0.15 });
+
     sections.forEach(sec => observer.observe(sec));
+    textBlocks.forEach(txt => observer.observe(txt));
 
     // gallery fade
     const imgs = document.querySelectorAll('.gallery img');
