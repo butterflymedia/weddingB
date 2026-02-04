@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gokul & Athira | Wedding</title>  <!-- SAFE FONTS (no external JS/CSS dependencies) -->  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">  <style>
+  <title>Gokul & Athira | Wedding</title>  <!-- Fonts -->  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">  <style>
     body{
       margin:0;
       font-family:'Poppins',sans-serif;
@@ -10,6 +10,7 @@
       color:#1a1a1a;
     }
 
+    /* HERO */
     .hero{
       min-height:100vh;
       display:flex;
@@ -22,7 +23,7 @@
 
     .hero h1{
       font-family:'Playfair Display',serif;
-      font-size:3.2rem;
+      font-size:3.4rem;
       margin-bottom:16px;
     }
 
@@ -32,10 +33,19 @@
       font-size:.9rem;
     }
 
+    /* SECTIONS */
     section{
       max-width:900px;
       margin:0 auto;
       padding:80px 20px;
+      opacity:0;
+      transform:translateY(40px);
+      transition:all .9s ease;
+    }
+
+    section.show{
+      opacity:1;
+      transform:none;
     }
 
     h2{
@@ -51,6 +61,7 @@
       margin:20px 0 30px;
     }
 
+    /* DETAILS */
     .details{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -62,6 +73,7 @@
       padding-left:16px;
     }
 
+    /* CTA */
     .cta{
       display:inline-block;
       margin-top:40px;
@@ -71,8 +83,15 @@
       color:#d4af37;
       text-decoration:none;
       letter-spacing:3px;
+      transition:.3s ease;
     }
 
+    .cta:hover{
+      background:#d4af37;
+      color:#fff;
+    }
+
+    /* GALLERY FADE-IN */
     .gallery{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -82,6 +101,14 @@
     .gallery img{
       width:100%;
       border-radius:12px;
+      opacity:0;
+      transform:scale(.96);
+      transition:all .8s ease;
+    }
+
+    .gallery img.show{
+      opacity:1;
+      transform:scale(1);
     }
 
     footer{
@@ -90,20 +117,65 @@
       color:#d4af37;
       letter-spacing:3px;
     }
+
+    /* TEXT POPUP */
+    .popup{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      pointer-events:none;
+      transition:.4s ease;
+      z-index:999;
+    }
+
+    .popup.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .popup-box{
+      background:#fff;
+      padding:40px;
+      border-radius:18px;
+      max-width:420px;
+      text-align:center;
+      transform:scale(.9);
+      transition:.4s ease;
+    }
+
+    .popup.show .popup-box{
+      transform:scale(1);
+    }
+
+    .popup-box h3{
+      font-family:'Playfair Display',serif;
+      margin-bottom:16px;
+    }
+
+    .close{
+      margin-top:24px;
+      cursor:pointer;
+      letter-spacing:3px;
+      color:#d4af37;
+    }
   </style></head>
-<body>  <div class="hero">
+<body>  <!-- HERO -->  <div class="hero">
     <div>
       <h1>Gokul & Athira</h1>
       <p>We are getting married</p>
     </div>
-  </div>  <section>
+  </div>  <!-- INVITATION -->  <section>
     <h2>With Grace & Blessings</h2>
     <div class="divider"></div>
     <p>
       With the blessings of Almighty God and the love of our families,<br>
       we invite you to celebrate the union of <strong>Gokul</strong> and <strong>Athira</strong>.
     </p>
-  </section>  <section>
+  </section>  <!-- GALLERY -->  <section>
     <h2>Moments</h2>
     <div class="divider"></div>
     <div class="gallery">
@@ -112,7 +184,7 @@
       <img src="gallery3.jpg" alt="Gallery 3">
       <img src="gallery4.jpg" alt="Gallery 4">
     </div>
-  </section>  <section>
+  </section>  <!-- DETAILS -->  <section>
     <h2>Wedding Details</h2>
     <div class="divider"></div>
     <div class="details">
@@ -123,5 +195,32 @@
     <a href="https://maps.app.goo.gl/pvw4jvEL48QdeHHR7" target="_blank" class="cta">Tap here to see location</a>
   </section>  <footer>
     Gokul & Athira · 03 · 05 · 2026
-  </footer></body>
+  </footer>  <!-- POPUP -->  <div class="popup" id="popup">
+    <div class="popup-box">
+      <h3>With Love</h3>
+      <p>Some moments are meant to be shared quietly.<br>Thank you for being part of ours.</p>
+      <div class="close" onclick="closePopup()">Close</div>
+    </div>
+  </div>  <script>
+    // section reveal
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ entry.target.classList.add('show'); }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // gallery fade
+    const imgs = document.querySelectorAll('.gallery img');
+    const imgObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); } });
+    }, { threshold: 0.2 });
+    imgs.forEach(i => imgObs.observe(i));
+
+    // popup
+    const popup = document.getElementById('popup');
+    setTimeout(()=>popup.classList.add('show'),2500);
+    function closePopup(){ popup.classList.remove('show'); }
+  </script></body>
 </html>
