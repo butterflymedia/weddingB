@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-body{
+body.page{
   margin:0;
   font-family:'Poppins',sans-serif;
   background:linear-gradient(135deg,#faf7f0,#efe6cf);
@@ -16,7 +16,11 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
+  opacity:1;
+  transition:opacity .6s ease;
 }
+
+body.fade-out{ opacity:0; }
 
 .hero{
   text-align:center;
@@ -28,8 +32,18 @@ body{
   animation:reveal 1.2s cubic-bezier(.19,1,.22,1) forwards;
 }
 
-.hero h1{ animation-delay:.2s; font-family:'Playfair Display',serif; font-size:3.5rem; }
-.hero p{ animation-delay:.6s; letter-spacing:2px; text-transform:uppercase; }
+.hero h1{
+  animation-delay:.2s;
+  font-family:'Playfair Display',serif;
+  font-size:3.6rem;
+}
+
+.hero p{
+  animation-delay:.6s;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
 .hero a{ animation-delay:1s; }
 
 @keyframes reveal{
@@ -47,15 +61,25 @@ body{
   letter-spacing:3px;
   transition:.3s ease;
 }
-.cta:hover{background:#d4af37;color:#fff;}
+.cta:hover{ background:#d4af37; color:#fff; }
 </style>
 </head>
 
-<body>
+<body class="page">
   <div class="hero">
     <h1>Gokul & Athira</h1>
     <p>We are getting married</p>
     <a href="details.html" class="cta">Enter</a>
   </div>
+
+<script>
+document.querySelectorAll('a[href]').forEach(link=>{
+  link.addEventListener('click',e=>{
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(()=>window.location.href=link.href,600);
+  });
+});
+</script>
 </body>
 </html>
