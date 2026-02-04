@@ -1,183 +1,151 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gokul & Athira | Wedding</title>  <!-- Premium Google Fonts -->  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #fdfaf5;
-      color: #3b2f2f;
-      scroll-behavior: smooth;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wedding Details</title>
 
-    header {
-      position: relative;
-      background: linear-gradient(rgba(88, 60, 35, 0.55), rgba(88, 60, 35, 0.55)), url('https://images.unsplash.com/photo-1600687764374-48a4a41c5a0f');
-      background-size: cover;
-      background-position: center;
-      color: #fffaf0;
-      text-align: center;
-      padding: 140px 20px;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.4rem;
-      margin-bottom: 12px;
-      letter-spacing: 1px;
-    }
+<style>
+body.page{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#fdfaf6;
+  color:#1a1a1a;
+  opacity:1;
+  transition:opacity .6s ease;
+}
+body.fade-out{opacity:0;}
 
-    header p {
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: 0.95;
-    }
+section{
+  max-width:900px;
+  margin:0 auto;
+  padding:80px 20px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:all 1s cubic-bezier(.19,1,.22,1);
+}
+section.show{opacity:1;transform:none;}
 
-    section {
-      max-width: 1000px;
-      margin: 80px auto;
-      padding: 0 20px;
-    }
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;
+}
 
-    h2 {
-      font-family: 'Playfair Display', serif;
-      text-align: center;
-      font-size: 2.3rem;
-      margin-bottom: 30px;
-      color: #6b3e26;
-      position: relative;
-    }
+.divider{
+  width:80px;
+  height:2px;
+  background:#d4af37;
+  margin:20px 0 30px;
+}
 
-    h2::after {
-      content: '';
-      display: block;
-      width: 80px;
-      height: 3px;
-      background: linear-gradient(to right, #b08a57, #e6c98b);
-      margin: 16px auto 0;
-      border-radius: 2px;
-    }
+/* Gallery */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.gallery img{
+  width:100%;
+  border-radius:12px;
+  opacity:0;
+  transform:translateY(30px);
+  transition:all 1s cubic-bezier(.19,1,.22,1);
+}
+.gallery img.show{opacity:1;transform:none;}
 
-    .card {
-      background: #fffdf8;
-      padding: 45px;
-      border-radius: 20px;
-      box-shadow: 0 25px 45px rgba(0,0,0,0.08);
-      margin-bottom: 50px;
-      border-top: 6px solid #b08a57;
-      animation: fadeUp 1s ease forwards;
-    }
+/* Details */
+.details{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+.details div{
+  border-left:2px solid #d4af37;
+  padding-left:16px;
+}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+/* CTA */
+.cta{
+  display:inline-block;
+  margin-top:40px;
+  padding:14px 32px;
+  border-radius:40px;
+  border:1px solid #d4af37;
+  color:#d4af37;
+  text-decoration:none;
+  letter-spacing:3px;
+}
+</style>
+</head>
 
-    .details {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 30px;
-      text-align: center;
-    }
+<body class="page">
 
-    .details h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: #6b3e26;
-      margin-bottom: 8px;
-    }
-
-    .invite-line {
-      text-align: center;
-      font-size: 1.15rem;
-      line-height: 1.9;
-      color: #4a2f1b;
-    }
-
-    .photo-card img {
-      width: 100%;
-      border-radius: 22px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-      transition: transform 0.6s ease;
-    }
-
-    .photo-card img:hover {
-      transform: scale(1.03);
-    }
-
-    .map-card iframe {
-      width: 100%;
-      height: 340px;
-      border: none;
-      border-radius: 18px;
-      margin-top: 20px;
-      box-shadow: 0 25px 40px rgba(0,0,0,0.15);
-    }
-
-    footer {
-      text-align: center;
-      padding: 45px 20px;
-      background: #efe4d4;
-      font-size: 0.9rem;
-      color: #5a3b24;
-      letter-spacing: 1px;
-    }
-  </style></head>
-<body>  <header>
-    <h1>Gokul S Kumar & Athira R Krishnan</h1>
-    <p>We are getting married</p>
-  </header>  <section>
-    <div class="card invite-line">
-      <p>
-        With the blessings of Almighty God and our beloved parents,<br>
-        we warmly invite you and your family to grace the auspicious
-        wedding ceremony of
-      </p>
-    </div><div class="card" style="text-align:center;">
-  <img src="couple.jpg" alt="Gokul and Athira" style="max-width:100%; border-radius:16px; box-shadow:0 10px 25px rgba(0,0,0,0.15); margin-bottom:20px;" />
-  <p style="font-size:1.1rem;">
-    <strong>Gokul S Kumar</strong><br>
-    Son of Sri. Sreekumar N.B & Smt. Sreelatha Sreekumar
+<section>
+  <h2>With Grace & Blessings</h2>
+  <div class="divider"></div>
+  <p>
+    With the blessings of Almighty God and the love of our families,<br>
+    we invite you to celebrate the sacred union of <strong>Gokul</strong> and <strong>Athira</strong>.
   </p>
-  <p style="font-size:1.1rem; margin-top:10px;">
-    <strong>Athira R Krishnan</strong><br>
-    Daughter of Sri. P. R. Radhakrishnan Nair & Smt. G. Ushakumari
-  </p>
-</div>
+</section>
 
-  </section>  <section>
-    <div class="card">
-      <h2>Wedding Details</h2>
-      <div class="details">
-        <div>
-          <h3>Date</h3>
-          <p>May 3rd, 2026 (Sunday)</p>
-        </div>
-        <div>
-          <h3>Time</h3>
-          <p>11:20 AM – 11:45 AM</p>
-        </div>
-        <div>
-          <h3>Venue</h3>
-          <p>Elamkavu Devi Temple Auditorium<br>Kothala</p>
-        </div>
-      </div>
-    </div><div class="card map-card">
-  <h2>Wedding Ceremony</h2>
-  <p><strong>Date:</strong> May 3rd, 2026 (Sunday)</p>
-  <p><strong>Time:</strong> 11:20 AM – 11:45 AM</p>
-  <p><strong>Venue:</strong> Elamkavu Devi Temple Auditorium, Kothala</p>
-  <iframe src="https://www.google.com/maps?q=Elamkavu+Devi+Temple+Auditorium+Kothala&output=embed"></iframe>
-</div>
+<section>
+  <h2>Moments</h2>
+  <div class="divider"></div>
+  <div class="gallery">
+    <img src="gallery1.jpg">
+    <img src="gallery2.jpg">
+    <img src="gallery3.jpg">
+    <img src="gallery4.jpg">
+  </div>
+</section>
 
-<div class="card">
-  <h2>With Love</h2>
-  <p style="text-align:center;">We request the pleasure of your presence and blessings on our special day.</p>
-</div>
+<section>
+  <h2>Wedding Details</h2>
+  <div class="divider"></div>
+  <div class="details">
+    <div><strong>Date</strong><br>May 3rd, 2026 · Sunday</div>
+    <div><strong>Time</strong><br>11:20 AM – 11:45 AM</div>
+    <div><strong>Venue</strong><br>Elamkavu Devi Temple Auditorium<br>Kothala</div>
+  </div>
 
-  </section>  <footer>
-    <p>© 2026 Gokul S Kumar & Athira R Krishnan | Wedding Invitation</p>
-  </footer></body>
+  <a href="https://maps.app.goo.gl/pvw4jvEL48QdeHHR7" target="_blank" class="cta">
+    Tap here to see location
+  </a>
+</section>
+
+<footer style="text-align:center;padding:60px 20px;color:#d4af37;letter-spacing:3px;">
+  Gokul & Athira · 03 · 05 · 2026
+</footer>
+
+<script>
+const sections=document.querySelectorAll('section');
+const imgs=document.querySelectorAll('.gallery img');
+
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{ if(x.isIntersecting) x.target.classList.add('show'); });
+},{threshold:.2});
+sections.forEach(s=>obs.observe(s));
+
+imgs.forEach((img,i)=>{
+  new IntersectionObserver(e=>{
+    if(e[0].isIntersecting){
+      setTimeout(()=>img.classList.add('show'),i*150);
+    }
+  },{threshold:.3}).observe(img);
+});
+
+document.querySelectorAll('a[href]').forEach(link=>{
+  if(link.target==="_blank") return;
+  link.addEventListener('click',e=>{
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(()=>window.location.href=link.href,600);
+  });
+});
+</script>
+
+</body>
 </html>
