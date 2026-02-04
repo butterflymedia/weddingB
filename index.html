@@ -8,9 +8,10 @@
       font-family:'Poppins',sans-serif;
       background:#fdfaf6;
       color:#1a1a1a;
+      overflow-x:hidden;
     }
 
-    /* HERO */
+    /* HERO – reference-style sequential reveal */
     .hero{
       min-height:100vh;
       display:flex;
@@ -19,6 +20,20 @@
       text-align:center;
       padding:60px 20px;
       background:linear-gradient(135deg,#faf7f0,#efe6cf);
+    }
+
+    .hero-inner > *{
+      opacity:0;
+      transform:translateY(40px) scale(0.98);
+      animation:heroReveal 1.2s cubic-bezier(.19,1,.22,1) forwards;
+    }
+
+    .hero-inner h1{ animation-delay:.2s; }
+    .hero-inner p{ animation-delay:.6s; }
+    .hero-inner .cta{ animation-delay:1s; }
+
+    @keyframes heroReveal{
+      to{opacity:1;transform:none}
     }
 
     .hero h1{
@@ -31,31 +46,23 @@
       letter-spacing:2px;
       text-transform:uppercase;
       font-size:.9rem;
+      margin-bottom:30px;
     }
 
-    /* SECTIONS */
+    /* SECTIONS – reference-style text reveal */
     section{
       max-width:900px;
       margin:0 auto;
       padding:80px 20px;
+    }
+
+    .fade-block > *{
       opacity:0;
       transform:translateY(30px);
-      transition:opacity 1s ease, transform 1s ease;
+      transition:opacity 1s cubic-bezier(.19,1,.22,1), transform 1s cubic-bezier(.19,1,.22,1);
     }
 
-    section.show{
-      opacity:1;
-      transform:none;
-    }
-
-    /* TEXT FADE-UP INSIDE SECTIONS */
-    .fade-text{
-      opacity:0;
-      transform:translateY(20px);
-      transition:opacity .9s ease, transform .9s ease;
-    }
-
-    .fade-text.show{
+    .fade-block.show > *{
       opacity:1;
       transform:none;
     }
@@ -98,12 +105,9 @@
       transition:.3s ease;
     }
 
-    .cta:hover{
-      background:#d4af37;
-      color:#fff;
-    }
+    .cta:hover{ background:#d4af37;color:#fff; }
 
-    /* GALLERY FADE-IN (IMPROVED) */
+    /* GALLERY – reference staggered reveal */
     .gallery{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -114,15 +118,13 @@
       width:100%;
       border-radius:12px;
       opacity:0;
-      transform:translateY(30px) scale(.97);
-      filter:blur(4px);
-      transition:opacity 1s ease, transform 1s ease, filter 1s ease;
+      transform:translateY(40px) scale(.96);
+      transition:opacity 1.1s cubic-bezier(.19,1,.22,1), transform 1.1s cubic-bezier(.19,1,.22,1);
     }
 
     .gallery img.show{
       opacity:1;
-      transform:translateY(0) scale(1);
-      filter:blur(0);
+      transform:none;
     }
 
     footer{
@@ -131,65 +133,22 @@
       color:#d4af37;
       letter-spacing:3px;
     }
-
-    /* TEXT POPUP */
-    .popup{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.6);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      opacity:0;
-      pointer-events:none;
-      transition:.4s ease;
-      z-index:999;
-    }
-
-    .popup.show{
-      opacity:1;
-      pointer-events:auto;
-    }
-
-    .popup-box{
-      background:#fff;
-      padding:40px;
-      border-radius:18px;
-      max-width:420px;
-      text-align:center;
-      transform:scale(.9);
-      transition:.4s ease;
-    }
-
-    .popup.show .popup-box{
-      transform:scale(1);
-    }
-
-    .popup-box h3{
-      font-family:'Playfair Display',serif;
-      margin-bottom:16px;
-    }
-
-    .close{
-      margin-top:24px;
-      cursor:pointer;
-      letter-spacing:3px;
-      color:#d4af37;
-    }
   </style></head>
 <body>  <!-- HERO -->  <div class="hero">
-    <div>
+    <div class="hero-inner">
       <h1>Gokul & Athira</h1>
       <p>We are getting married</p>
+      <a href="#details" class="cta">Save the Date</a>
     </div>
-  </div>  <!-- INVITATION -->  <section>
+  </div>
+  </div>  <!-- INVITATION -->  <section class="fade-block">
     <h2 class="fade-text">With Grace & Blessings</h2>
     <div class="divider"></div>
     <p class="fade-text">
       With the blessings of Almighty God and the love of our families,<br>
       we invite you to celebrate the union of <strong>Gokul</strong> and <strong>Athira</strong>.
     </p>
-  </section>  <!-- GALLERY -->  <section>
+  </section>  <!-- GALLERY -->  <section class="fade-block">
     <h2 class="fade-text">Moments</h2>
     <div class="divider"></div>
     <div class="gallery">
@@ -198,7 +157,7 @@
       <img src="gallery3.jpg" alt="Gallery 3">
       <img src="gallery4.jpg" alt="Gallery 4">
     </div>
-  </section>  <!-- DETAILS -->  <section>
+  </section>  <!-- DETAILS -->  <section class="fade-block">
     <h2 class="fade-text">Wedding Details</h2>
     <div class="divider"></div>
     <div class="details">
@@ -209,38 +168,29 @@
     <a href="https://maps.app.goo.gl/pvw4jvEL48QdeHHR7" target="_blank" class="cta">Tap here to see location</a>
   </section>  <footer>
     Gokul & Athira · 03 · 05 · 2026
-  </footer>  <!-- POPUP -->  <div class="popup" id="popup">
-    <div class="popup-box">
-      <h3>With Love</h3>
-      <p>Some moments are meant to be shared quietly.<br>Thank you for being part of ours.</p>
-      <div class="close" onclick="closePopup()">Close</div>
-    </div>
-  </div>  <script>
-    // section reveal
-    const sections = document.querySelectorAll('section');
-    const textBlocks = document.querySelectorAll('.fade-text');
-
-    const observer = new IntersectionObserver(entries => {
+  </footer>  </div>  <script>
+    // text reveal like reference site
+    const blocks = document.querySelectorAll('.fade-block');
+    const blockObs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if(entry.isIntersecting){
           entry.target.classList.add('show');
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.2 });
 
-    sections.forEach(sec => observer.observe(sec));
-    textBlocks.forEach(txt => observer.observe(txt));
+    blocks.forEach(b => blockObs.observe(b));
 
-    // gallery fade
+    // gallery stagger reveal
     const imgs = document.querySelectorAll('.gallery img');
     const imgObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); } });
-    }, { threshold: 0.2 });
-    imgs.forEach(i => imgObs.observe(i));
+      entries.forEach((entry,i) => {
+        if(entry.isIntersecting){
+          setTimeout(()=>entry.target.classList.add('show'), i*150);
+        }
+      });
+    }, { threshold: 0.3 });
 
-    // popup
-    const popup = document.getElementById('popup');
-    setTimeout(()=>popup.classList.add('show'),2500);
-    function closePopup(){ popup.classList.remove('show'); }
+    imgs.forEach(img => imgObs.observe(img));
   </script></body>
 </html>
